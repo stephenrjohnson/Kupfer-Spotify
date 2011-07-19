@@ -19,7 +19,7 @@ class PlayPause (RunnableLeaf):
 		RunnableLeaf.__init__(self, name=_("Play/Pause"))
 		session = dbus.SessionBus.get_session()
     	self.spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-		self.spotify.PlayPause()	
+        self.spotify.PlayPause()	
 	def get_description(self):
 		return _("Resume/Pause playback in Spotify")
 	def get_icon_name(self):
@@ -27,8 +27,8 @@ class PlayPause (RunnableLeaf):
 class Next (RunnableLeaf):
 	def __init__(self):
    		session = dbus.SessionBus.get_session()
-	    self.spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-		RunnableLeaf.__init__(self, name=_("Next"))
+        self.spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
+        RunnableLeaf.__init__(self, name=_("Next"))
 	def run(self):
 		self.spotify.Next()
 	def get_description(self):
@@ -42,7 +42,7 @@ class Previous (RunnableLeaf):
 	def run(self):
 		session = dbus.SessionBus.get_session()
         self.spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-		self.spotify.Previous()
+        self.spotify.Previous()
 	def get_description(self):
 		return _("Jump to previous track in Previos")
 	def get_icon_name(self):

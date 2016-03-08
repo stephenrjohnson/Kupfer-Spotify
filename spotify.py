@@ -14,12 +14,16 @@ from kupfer import utils, icons, pretty
 
 import pynotify
 
+def get_player():
+    session = dbus.SessionBus.get_session()
+    spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
+    return dbus.Interface(spotify, dbus_interface = 'org.mpris.MediaPlayer2.Player')
+
 class PlayPause (RunnableLeaf):
-    def run(self):
+    def __init__(self):
         RunnableLeaf.__init__(self, name=_("Play/Pause"))
-        session = dbus.SessionBus.get_session()
-        spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-        spotify.PlayPause()	
+    def run(self):
+        get_player().PlayPause() 
     def get_description(self):
         return _("Resume/Pause playback in Spotify")
     def get_icon_name(self):
@@ -28,9 +32,7 @@ class Next (RunnableLeaf):
     def __init__(self):
         RunnableLeaf.__init__(self, name=_("Next"))
     def run(self):
-        session = dbus.SessionBus.get_session()
-        spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-        spotify.Next()
+        get_player().Next()
     def get_description(self):
         return _("Jump to next track in Spotify")
     def get_icon_name(self):
@@ -40,11 +42,9 @@ class Previous (RunnableLeaf):
     def __init__(self):
         RunnableLeaf.__init__(self, name=_("Previous"))
     def run(self):
-        session = dbus.SessionBus.get_session() 
-        spotify = session.get_object("org.mpris.MediaPlayer2.spotify","/org/mpris/MediaPlayer2")
-        spotify.Previous()
+        get_player().Previous()
     def get_description(self):
-        return _("Jump to previous track in Previos")
+        return _("Jump to previous track in Spotify")
     def get_icon_name(self):
         return "media-skip-backward"
 
